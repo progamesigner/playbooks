@@ -1,13 +1,20 @@
 - name: Start Home Assistant container
-  docker_container:
-    env:
-      TZ: "{{ system_timezone }}"
-    image: homeassistant/home-assistant:0.103.5
-    init: yes
-    name: home-assistant
-    network_mode: host
-    restart: yes
-    restart_policy: unless-stopped
-    state: started
-    volumes:
-    - /srv/homeassistant:/config
+  shell: |
+    _=$(docker container inspect home-assistant &>/dev/null)
+    echo $?
+    _=$(docker container inspect home-assistant &>/dev/null)
+
+    if [ $? -eq 0 ]; then
+      docker container stop home-assistant
+      docker container rm -v home-assistant
+    fi
+
+    docker container run \
+      --detach \
+      --env TZ="{{ system_timezone }}" \
+      --init \
+      --name home-assistant \
+      --network host \
+      --restart unless-stopped \
+      --volume /srv/homeassistant:/config \
+      homeassistant/home-assistant:0.103.5

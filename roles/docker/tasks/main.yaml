@@ -25,12 +25,6 @@
   - docker-ce
   - docker-ce-cli
 
-- name: Install Docker for Python
-  pip:
-    extra_args: --upgrade
-    name:
-    - docker
-
 - name: Start Docker services
   service:
     enabled: yes

@@ -1,16 +1,21 @@
 - name: Start UniFi container
-  docker_container:
-    env:
-      MEM_LIMIT: 1024M
-      PGID: 1000
-      PUID: 1000
-      TZ: "{{ system_timezone }}"
-    image: linuxserver/unifi-controller:5.12.35-ls45
-    init: yes
-    name: unifi-controller
-    network_mode: host
-    restart: yes
-    restart_policy: unless-stopped
-    state: started
-    volumes:
-    - /srv/unifi-controller:/config
+  shell: |
+    _=$(docker container inspect unifi-controller &>/dev/null)
+
+    if [ $? -eq 0 ]; then
+      docker container stop unifi-controller
+      docker container rm -v unifi-controller
+    fi
+
+    docker container run \
+      --detach \
+      --env MEM_LIMIT=1024M \
+      --env PGID=1000 \
+      --env PUID=1000 \
+      --env TZ="{{ system_timezone }}" \
+      --init \
+      --name unifi-controller \
+      --network host \
+      --restart unless-stopped \
+      --volume /srv/unifi-controller:/config \
+      linuxserver/unifi-controller:5.12.35-ls45

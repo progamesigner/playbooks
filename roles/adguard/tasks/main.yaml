@@ -1,14 +1,19 @@
 - name: Start AdGuard Home container
-  docker_container:
-    env:
-      TZ: "{{ system_timezone }}"
-    image: adguard/adguardhome:v0.100.8
-    init: yes
-    name: adguardhome
-    network_mode: host
-    restart: yes
-    restart_policy: unless-stopped
-    state: started
-    volumes:
-    - /srv/adguard-data:/opt/adguardhome/work
-    - /srv/adguard-conf:/opt/adguardhome/conf
+  shell: |
+    _=$(docker container inspect adguardhome &>/dev/null)
+
+    if [ $? -eq 0 ]; then
+      docker container stop adguardhome
+      docker container rm -v adguardhome
+    fi
+
+    docker container run \
+      --detach \
+      --env TZ="{{ system_timezone }}" \
+      --init \
+      --name adguardhome \
+      --network host \
+      --restart unless-stopped \
+      --volume /srv/adguard-data:/opt/adguardhome/work \
+      --volume /srv/adguard-conf:/opt/adguardhome/conf \
+      adguard/adguardhome:v0.100.8
