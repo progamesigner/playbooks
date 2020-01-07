@@ -1,7 +1,7 @@
 - name: Start Home Assistant container
   docker_container:
     env:
-      TZ: {{ system_timezone }}
+      TZ: "{{ system_timezone }}"
     image: homeassistant/home-assistant:0.103.5
     init: yes
     name: home-assistant
