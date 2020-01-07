@@ -1,0 +1,35 @@
+- name: Overwrite release repository for Ubuntu
+  set_fact:
+    zerotier_deb_release_repo: bionic
+  when:
+  - ansible_facts.distribution == 'Ubuntu'
+  - ansible_facts.distribution_major_version | int > 18
+
+- name: Add ZeroTier GPG key
+  apt_key:
+    id: "{{ zerotier_gpg_key_id }}"
+    keyserver: "{{ zerotier_gpg_key_server }}"
+
+- name: Add ZeroTier APT repository
+  apt_repository:
+    repo: "deb {{ zerotier_download_base_url }}/debian/{{ zerotier_deb_release_repo }} {{ zerotier_deb_release_repo }} main"
+    filename: zerotier
+
+- name: Install Zerotier packages
+  apt:
+    install_recommends: no
+    name: "{{ item }}"
+    update_cache: yes
+  loop:
+  - zerotier-one
+
+- name: Join ZeroTier network
+  command: "zerotier-cli join {{ zerotier_network_id }}"
+  when:
+  - zerotier_network_id is defined
+
+- name: Start Zerotier services
+  service:
+    enabled: yes
+    name: zerotier-one
+    state: started
