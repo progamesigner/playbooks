@@ -1,0 +1,10 @@
+- hosts: home
+  become: yes
+  gather_facts: yes
+  roles:
+  - role: system
+  - role: users
+  - role: zerotier
+  - role: docker
+  - role: home-assistant
+  - role: upgrade

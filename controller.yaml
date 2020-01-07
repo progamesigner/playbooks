@@ -1,0 +1,11 @@
+- hosts: controller
+  become: yes
+  gather_facts: yes
+  roles:
+  - role: system
+  - role: users
+  - role: zerotier
+  - role: docker
+  - role: unifi-controller
+  - role: adguard
+  - role: upgrade
