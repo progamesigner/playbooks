@@ -1,0 +1,45 @@
+- name: Enable Passwordless sudo
+  copy:
+    src: sudoers
+    dest: /etc/sudoers.d/users
+    mode: 0440
+
+- name: Create user
+  user:
+    create_home: yes
+    group: users
+    name: "{{ username }}"
+    password: "!"
+
+- name: Upload SSH key
+  authorized_key:
+    comment: ""
+    exclusive: yes
+    key: "{{ lookup('file', ssh_public_key_path) }}"
+    manage_dir: yes
+    user: "{{ username }}"
+
+- name: Disable ubuntu password
+  user:
+    name: ubuntu
+    password: "!"
+  when:
+  - ansible_facts.distribution == 'Ubuntu'
+
+- name: Disable password login
+  lineinfile:
+    path: "{{ sshd_config }}"
+    regexp: ^#?PasswordAuthentication
+    line: PasswordAuthentication no
+
+- name: Disable empty password login
+  lineinfile:
+    path: "{{ sshd_config }}"
+    regexp: ^#?PermitEmptyPasswords
+    line: PermitEmptyPasswords no
+
+- name: Disable remote root login
+  lineinfile:
+    path: "{{ sshd_config }}"
+    regexp: ^#?PermitRootLogin
+    line: PermitRootLogin no
