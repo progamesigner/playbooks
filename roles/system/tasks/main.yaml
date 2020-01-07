@@ -1,0 +1,34 @@
+- name: Set hostname
+  hostname:
+    name: "{{ inventory_hostname_short | capitalize }}"
+
+- name: Set timezone
+  timezone:
+    hwclock: UTC
+    name: "{{ system_timezone }}"
+
+- name: Set locale
+  locale_gen:
+    name: "{{ system_locale }}"
+
+- name: Install packages
+  apt:
+    install_recommends: no
+    name: "{{ item }}"
+  loop:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg2
+  - openssh-server
+  - software-properties-common
+  - sudo
+
+- name: Start services
+  service:
+    enabled: yes
+    name: "{{ item }}"
+    state: started
+  loop:
+  - ssh
+  - systemd-timesyncd
