@@ -1,0 +1,16 @@
+- name: Start UniFi container
+  docker_container:
+    env:
+      MEM_LIMIT: 1024M
+      PGID: 1000
+      PUID: 1000
+      TZ: {{ system_timezone }}
+    image: linuxserver/unifi-controller:5.12.35-ls45
+    init: yes
+    name: unifi-controller
+    network_mode: host
+    restart: yes
+    restart_policy: unless-stopped
+    state: started
+    volumes:
+    - /srv/unifi-controller:/config
