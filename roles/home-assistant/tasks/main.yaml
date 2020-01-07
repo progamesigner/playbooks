@@ -1,0 +1,13 @@
+- name: Start Home Assistant container
+  docker_container:
+    env:
+      TZ: {{ system_timezone }}
+    image: homeassistant/home-assistant:0.103.5
+    init: yes
+    name: home-assistant
+    network_mode: host
+    restart: yes
+    restart_policy: unless-stopped
+    state: started
+    volumes:
+    - /srv/homeassistant:/config
