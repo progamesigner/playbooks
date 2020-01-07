@@ -5,7 +5,7 @@
   - ansible_facts.distribution == 'Ubuntu'
   - ansible_facts.distribution_major_version | int > 18
 
-- name: Add ZeroTier GPG key
+- name: Add Docker GPG key
   apt_key:
     id: "{{ docker_gpg_key_id }}"
     keyserver: "{{ docker_gpg_key_server }}"
