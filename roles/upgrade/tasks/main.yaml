@@ -1,0 +1,6 @@
+- name: Upgrade system
+  apt:
+    force_apt_get: yes
+    install_recommends: no
+    update_cache: yes
+    upgrade: full
