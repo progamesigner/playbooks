@@ -6,6 +6,6 @@
   - role: security
   - role: zerotier
   - role: docker
+  - role: adguard-home
   - role: unifi-controller
-  - role: adguard
   - role: upgrade
