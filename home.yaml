@@ -6,5 +6,6 @@
   - role: security
   - role: zerotier
   - role: docker
+  - role: adguard-home
   - role: home-assistant
   - role: upgrade
