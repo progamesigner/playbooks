@@ -1,0 +1,19 @@
+- name: Start Unbound container
+  shell: |
+    _=$(docker container inspect unbound &>/dev/null)
+
+    if [ $? -eq 0 ]; then
+      docker container stop unbound
+      docker container rm -v unbound
+    fi
+
+    docker container run \
+      --detach \
+      --env TZ="{{ system_timezone }}" \
+      --init \
+      --name unbound \
+      --network host \
+      --restart unless-stopped \
+      --user root \
+      --volume /srv/unbound:/opt/unbound/etc/unbound \
+      klutchell/unbound:1.9.6
