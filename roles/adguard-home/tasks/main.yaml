@@ -1,17 +1,17 @@
 - name: Start AdGuard Home container
   shell: |
-    _=$(docker container inspect adguardhome &>/dev/null)
+    _=$(docker container inspect adguard-home &>/dev/null)
 
     if [ $? -eq 0 ]; then
-      docker container stop adguardhome
-      docker container rm -v adguardhome
+      docker container stop adguard-home
+      docker container rm -v adguard-home
     fi
 
     docker container run \
       --detach \
       --env TZ="{{ system_timezone }}" \
       --init \
-      --name adguardhome \
+      --name adguard-home \
       --network host \
       --restart unless-stopped \
       --volume /srv/adguard-data:/opt/adguardhome/work \
