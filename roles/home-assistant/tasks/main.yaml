@@ -17,4 +17,4 @@
       --network host \
       --restart unless-stopped \
       --volume /srv/home-assistant:/config \
-      homeassistant/home-assistant:0.103.5
+      homeassistant/home-assistant:0.103.6
