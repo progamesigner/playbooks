@@ -16,5 +16,5 @@
       --name home-assistant \
       --network host \
       --restart unless-stopped \
-      --volume /srv/homeassistant:/config \
+      --volume /srv/home-assistant:/config \
       homeassistant/home-assistant:0.103.5
