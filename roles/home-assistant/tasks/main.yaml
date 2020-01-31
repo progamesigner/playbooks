@@ -1,8 +1,6 @@
 - name: Start Home Assistant container
   shell: |
     _=$(docker container inspect home-assistant &>/dev/null)
-    echo $?
-    _=$(docker container inspect home-assistant &>/dev/null)
 
     if [ $? -eq 0 ]; then
       docker container stop home-assistant
@@ -17,4 +15,4 @@
       --network host \
       --restart unless-stopped \
       --volume /srv/home-assistant:/config \
-      homeassistant/home-assistant:0.103.6
+      homeassistant/home-assistant:0.104.3
