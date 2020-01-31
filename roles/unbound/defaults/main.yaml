@@ -1,0 +1,5 @@
+unbound_local_ipv4: 127.0.0.1@5053
+unbound_lan_ipv4: 127.0.0.1@53
+unbound_zerotier_ipv4: 127.0.0.1@53
+unbound_zerotier_ivp6: ::1@53
+unbound_upstream: 127.0.0.1@5053

@@ -1,3 +1,11 @@
+- name: Copy Unbound configuration
+  template:
+    src: unbound.conf.j2
+    dest: /srv/unbound/unbound.conf
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Start Unbound container
   shell: |
     _=$(docker container inspect unbound &>/dev/null)
