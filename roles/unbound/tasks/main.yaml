@@ -1,3 +1,11 @@
+- name: Create Unbound directory
+  file:
+    group: root
+    mode: 0755
+    owner: root
+    path: /srv/unbound
+    state: directory
+
 - name: Copy Unbound configuration
   template:
     src: unbound.conf.j2
