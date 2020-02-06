@@ -18,4 +18,4 @@
       --network host \
       --restart unless-stopped \
       --volume /srv/unifi-controller:/config \
-      linuxserver/unifi-controller:5.12.35-ls45
+      linuxserver/unifi-controller:5.12.35-ls48
