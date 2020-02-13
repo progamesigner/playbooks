@@ -1,8 +1,6 @@
 - name: Start UniFi container
   shell: |
-    _=$(docker container inspect unifi-controller &>/dev/null)
-
-    if [ $? -eq 0 ]; then
+    if [ -n "$(docker container list --all --quiet --filter name=unifi-controller)" ]; then
       docker container stop unifi-controller
       docker container rm -v unifi-controller
     fi

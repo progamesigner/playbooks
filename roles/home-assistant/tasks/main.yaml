@@ -1,8 +1,6 @@
 - name: Start Home Assistant container
   shell: |
-    _=$(docker container inspect home-assistant &>/dev/null)
-
-    if [ $? -eq 0 ]; then
+    if [ -n "$(docker container list --all --quiet --filter name=home-assistant)" ]; then
       docker container stop home-assistant
       docker container rm -v home-assistant
     fi

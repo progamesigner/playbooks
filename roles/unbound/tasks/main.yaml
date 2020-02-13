@@ -16,9 +16,7 @@
 
 - name: Start Unbound container
   shell: |
-    _=$(docker container inspect unbound &>/dev/null)
-
-    if [ $? -eq 0 ]; then
+    if [ -n "$(docker container list --all --quiet --filter name=unbound)" ]; then
       docker container stop unbound
       docker container rm -v unbound
     fi

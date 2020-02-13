@@ -1,8 +1,6 @@
 - name: Start AdGuard Home container
   shell: |
-    _=$(docker container inspect adguard-home &>/dev/null)
-
-    if [ $? -eq 0 ]; then
+    if [ -n "$(docker container list --all --quiet --filter name=adguard-home)" ]; then
       docker container stop adguard-home
       docker container rm -v adguard-home
     fi
