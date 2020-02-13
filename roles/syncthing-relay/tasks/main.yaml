@@ -1,0 +1,21 @@
+- name: Create Syncthing Relay directory
+  file:
+    group: root
+    mode: 0755
+    owner: root
+    path: /srv/syncthing-relay
+    state: directory
+
+- name: Start Syncthing Relay container
+  shell: |
+    if [ -z "$(docker container list --all --quiet --filter name=syncthing-relay)" ]; then
+      docker container run \
+        --detach \
+        --init \
+        --name syncthing-relay \
+        --network host \
+        --restart unless-stopped \
+        --user root \
+        --volume /srv/syncthing-relay:/etc/relaysrv \
+        rpidckr/relaysrv:20191103 -keys /etc/relaysrv {{ syncthing_relay_args }}
+    fi
