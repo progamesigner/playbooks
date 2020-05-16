@@ -14,4 +14,4 @@
       --restart unless-stopped \
       --volume /srv/adguard-data:/opt/adguardhome/work \
       --volume /srv/adguard-conf:/opt/adguardhome/conf \
-      adguard/adguardhome:arm64-v0.101.0
+      adguard/adguardhome:arm64-v0.102.0
