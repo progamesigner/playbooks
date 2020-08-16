@@ -30,4 +30,4 @@
       --restart unless-stopped \
       --user root \
       --volume /srv/unbound:/opt/unbound/etc/unbound \
-      klutchell/unbound:1.9.6
+      klutchell/unbound:1.11.0
