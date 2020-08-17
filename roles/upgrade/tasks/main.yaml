@@ -1,6 +1,3 @@
-- name: Clean up unused docker images
-  shell: docker image prune --all
-
 - name: Upgrade system
   apt:
     force_apt_get: yes
