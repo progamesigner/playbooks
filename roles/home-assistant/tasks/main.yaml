@@ -13,4 +13,4 @@
       --network host \
       --restart unless-stopped \
       --volume /srv/home-assistant:/config \
-      homeassistant/home-assistant:2021.2.1
+      homeassistant/home-assistant:2021.2.2
