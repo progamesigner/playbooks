@@ -13,4 +13,4 @@
       --network host \
       --restart unless-stopped \
       --volume /srv/home-assistant:/config \
-      ghcr.io/home-assistant/home-assistant:2021.5.5
+      ghcr.io/home-assistant/home-assistant:2021.6.0
