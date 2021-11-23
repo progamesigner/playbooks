@@ -1,0 +1,24 @@
+- hosts: kubernetes
+  become: yes
+  gather_facts: true
+  roles:
+  - role: prepare
+  - role: kubernetes-prepare
+
+# - hosts: kubernetes
+#   become: yes
+#   gather_facts: yes
+#   roles:
+#   - role: kubernetes
+
+# - hosts: masters
+#   become: yes
+#   gather_facts: yes
+#   roles:
+#   - role: kubernetes-master
+
+# - hosts: workers
+#   become: yes
+#   gather_facts: yes
+#   roles:
+#   - role: kubernetes-worker
