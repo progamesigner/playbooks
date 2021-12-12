@@ -16,4 +16,4 @@
       --network host \
       --restart unless-stopped \
       --volume /srv/unifi-controller:/config \
-      linuxserver/unifi-controller:6.5.53-ls132
+      linuxserver/unifi-controller:6.5.54-ls133
