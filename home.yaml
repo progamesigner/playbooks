@@ -6,6 +6,6 @@
   - role: security
   - role: zerotier
   - role: docker
-  - role: home-assistant
-  - role: unbound
+  - role: containers/home-assistant
+  - role: containers/unbound
   - role: upgrade

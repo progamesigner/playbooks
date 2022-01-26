@@ -6,8 +6,8 @@
   - role: security
   - role: zerotier
   - role: docker
-  - role: adguard-home
-  - role: syncthing-relay
-  - role: unbound
-  - role: unifi-controller
+  - role: containers/adguard-home
+  - role: containers/syncthing-relay
+  - role: containers/unbound
+  - role: containers/unifi-controller
   - role: upgrade
