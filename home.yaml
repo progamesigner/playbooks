@@ -2,10 +2,10 @@
   become: yes
   gather_facts: yes
   roles:
-  - role: system
-  - role: security
+  - role: system/base
+  - role: system/security
   - role: zerotier
   - role: docker
   - role: containers/home-assistant
   - role: containers/unbound
-  - role: upgrade
+  - role: system/upgrade

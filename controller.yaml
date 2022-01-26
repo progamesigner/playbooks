@@ -2,12 +2,12 @@
   become: yes
   gather_facts: yes
   roles:
-  - role: system
-  - role: security
+  - role: system/base
+  - role: system/security
   - role: zerotier
   - role: docker
   - role: containers/adguard-home
   - role: containers/syncthing-relay
   - role: containers/unbound
   - role: containers/unifi-controller
-  - role: upgrade
+  - role: system/upgrade
