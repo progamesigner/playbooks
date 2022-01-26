@@ -1,9 +1,0 @@
-k3s_version: v0.6.1
-# cluster_user: user
-k3s_workdir: /var/lib/k3s
-
-# master_ip: "{{ hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0]) }}"
-
-ssh_public_key_path: ~/.ssh/server_progamesigner.pub
-
-# systemd_dir: /etc/systemd/system
