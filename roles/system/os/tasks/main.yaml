@@ -31,7 +31,7 @@
   loop:
   - tcp_bbr
 
-- name: Configure System
+- name: Configure Kernel Parameters
   ansible.posix.sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"

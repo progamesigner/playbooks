@@ -1,8 +1,7 @@
 - hosts: home
   become: yes
-  gather_facts: yes
   roles:
-  - role: system/base
+  - role: system/os
   - role: system/security
   - role: zerotier
   - role: docker
