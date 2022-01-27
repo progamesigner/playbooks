@@ -31,6 +31,12 @@
   loop:
   - tcp_bbr
 
+- name: Persist Kernel Modules
+  ansible.builtin.copy:
+    dest: /etc/modules-load.d/network.conf
+    content: |
+      tcp_bbr
+
 - name: Configure Kernel Parameters
   ansible.posix.sysctl:
     name: "{{ item.name }}"
