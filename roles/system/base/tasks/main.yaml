@@ -1,20 +1,21 @@
-- name: Set hostname
-  hostname:
-    name: "{{ inventory_hostname_short | capitalize }}"
+- name: Setup Hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname | capitalize }}"
 
-- name: Set timezone
-  timezone:
+- name: Setup Timezone
+  community.general.timezone:
     hwclock: UTC
     name: "{{ system_timezone }}"
 
-- name: Set locale
-  locale_gen:
+- name: Setup Locale
+  community.general.locale_gen:
     name: "{{ system_locale }}"
 
-- name: Install packages
-  apt:
+- name: Install Essential Packages
+  ansible.builtin.apt:
     install_recommends: no
     name: "{{ item }}"
+    update_cache: yes
   loop:
   - apt-transport-https
   - ca-certificates
@@ -24,8 +25,26 @@
   - software-properties-common
   - sudo
 
-- name: Start services
-  service:
+- name: Setup Kernel Module (tcp_bbr)
+  community.general.modprobe:
+    name: "{{ item }}"
+  loop:
+  - tcp_bbr
+
+- name: Configure System
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  loop:
+  - name: fs.inotify.max_user_watches
+    value: 524288
+  - name: net.core.default_qdisc
+    value: fq
+  - name: net.ipv4.tcp_congestion_control
+    value: bbr
+
+- name: Start Services (ssh & timesyncd)
+  ansible.builtin.service:
     enabled: yes
     name: "{{ item }}"
     state: started
