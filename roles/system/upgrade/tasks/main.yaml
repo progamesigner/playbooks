@@ -1,5 +1,5 @@
 - name: Upgrade system
-  apt:
+  ansible.builtin.package:
     force_apt_get: yes
     install_recommends: no
     update_cache: yes

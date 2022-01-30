@@ -1,40 +1,36 @@
 - name: Upload SSH key
-  authorized_key:
-    comment: ""
+  ansible.posix.authorized_key:
+    comment: ''
     exclusive: yes
     key: "{{ lookup('file', ssh_public_key_path) }}"
     manage_dir: yes
     user: ubuntu
-  when:
-  - ansible_facts.distribution == 'Ubuntu'
 
 - name: Enable Passwordless sudo
-  copy:
+  ansible.builtin.copy:
     src: sudoers
     dest: /etc/sudoers.d/users
     mode: 0440
 
 - name: Disable default ubuntu user password
-  user:
+  ansible.builtin.user:
     name: ubuntu
-    password: "!"
-  when:
-  - ansible_facts.distribution == 'Ubuntu'
+    password: '!'
 
 - name: Disable password login
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ sshd_config }}"
     regexp: ^#?PasswordAuthentication
     line: PasswordAuthentication no
 
 - name: Disable empty password login
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ sshd_config }}"
     regexp: ^#?PermitEmptyPasswords
     line: PermitEmptyPasswords no
 
 - name: Disable remote root login
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ sshd_config }}"
     regexp: ^#?PermitRootLogin
     line: PermitRootLogin no
