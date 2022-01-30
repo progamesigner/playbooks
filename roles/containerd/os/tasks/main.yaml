@@ -1,4 +1,4 @@
-- name: Setup Kernel Modules for containerd
+- name: Setup kernel modules
   community.general.modprobe:
     name: "{{ item }}"
   loop:
@@ -6,7 +6,7 @@
   - bridge
   - overlay
 
-- name: Persist Kernel Modules
+- name: Persist mernel modules
   ansible.builtin.copy:
     dest: /etc/modules-load.d/{{ item }}.conf
     content: "{{ item }}"
@@ -15,7 +15,7 @@
   - bridge
   - overlay
 
-- name: Configure Kernel Parameters
+- name: Configure kernel parameters
   ansible.posix.sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
@@ -34,16 +34,3 @@
     value: 1
   - name: vm.max_map_count
     value: 262144
-
-# - name: Copy Files
-#   ansible.builtin.copy:
-#     src: "{{ item.src }}"
-#     dest: "{{ item.dest }}"
-#   loop:
-#   - src: 90-cgroups.cfg
-#     dest: /etc/default/grub.d/90-cgroups.cfg
-#
-### GRUB_CMDLINE_LINUX_DEFAULT="${GRUB_CMDLINE_LINUX_DEFAULT} systemd.unified_cgroup_hierarchy=1"
-#
-# - name: Update GRUB
-#   ansible.builtin.command: update-grub
