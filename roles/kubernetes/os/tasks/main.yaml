@@ -1,0 +1,24 @@
+- name: Disable "swap" for Kubernetes
+  block:
+  - name: Disable system swap
+    ansible.builtin.command: swapoff --all
+
+  - name: Remove swaps from /etc/fstab (named swap)
+    ansible.posix.mount:
+      name: swap
+      fstype: swap
+      state: absent
+
+  - name: Remove swaps from /etc/fstab (named none)
+    ansible.posix.mount:
+      name: none
+      fstype: swap
+      state: absent
+
+- name: Setup kernel parameters
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  loop:
+  - name: vm.swappiness
+    value: 0
