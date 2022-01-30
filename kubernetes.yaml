@@ -3,6 +3,7 @@
   roles:
   - role: system/os
   - role: system/security
+  - role: system/syncthing
   - role: system/zerotier
   - role: containerd/os
   - role: containerd/containerd
