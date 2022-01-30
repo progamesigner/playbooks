@@ -1,5 +1,0 @@
-docker_deb_release_repo: "{{ ansible_facts.distribution_release | lower }}"
-docker_deb_repo: "{{ ansible_facts.distribution | lower }}"
-docker_download_base_url: https://download.docker.com
-docker_gpg_key_id: 8D81803C0EBFCD88
-docker_gpg_key_server: keyserver.ubuntu.com

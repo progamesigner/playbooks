@@ -1,0 +1,2 @@
+docker_apt_release: focal
+docker_architecture: amd64
