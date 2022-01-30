@@ -6,11 +6,17 @@
     manage_dir: yes
     user: ubuntu
 
-- name: Enable Passwordless sudo
+- name: Enable passwordless sudo
   ansible.builtin.copy:
     src: sudoers
     dest: /etc/sudoers.d/users
     mode: 0440
+
+- name: Add "ubuntu" user to "users" group
+  ansible.builtin.user:
+    name: ubuntu
+    groups: users
+    append: yes
 
 - name: Disable default ubuntu user password
   ansible.builtin.user:
