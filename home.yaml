@@ -3,8 +3,11 @@
   roles:
   - role: system/os
   - role: system/security
-  - role: zerotier
-  - role: docker
+  - role: system/zerotier
+  - role: containerd/os
+  - role: containerd/containerd
+  - role: docker/os
+  - role: docker/docker
   - role: containers/home-assistant
   - role: containers/unbound
   - role: system/upgrade
