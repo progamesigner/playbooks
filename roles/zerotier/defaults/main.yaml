@@ -1,4 +1,0 @@
-zerotier_deb_release_repo: "{{ ansible_facts.distribution_release }}"
-zerotier_download_base_url: https://download.zerotier.com
-zerotier_gpg_key_id: 1657198823E52A61
-zerotier_gpg_key_server: keyserver.ubuntu.com
