@@ -7,7 +7,7 @@
 
     docker container run \
       --detach \
-      --env TZ="{{ system_timezone }}" \
+      --env TZ={{ system_timezone }} \
       --init \
       --name adguard-home \
       --network host \

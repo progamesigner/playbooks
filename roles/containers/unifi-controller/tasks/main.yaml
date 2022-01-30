@@ -10,7 +10,7 @@
       --env MEM_LIMIT=1024M \
       --env PGID=1000 \
       --env PUID=1000 \
-      --env TZ="{{ system_timezone }}" \
+      --env TZ={{ system_timezone }} \
       --init \
       --name unifi-controller \
       --network host \

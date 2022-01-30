@@ -8,7 +8,7 @@
 
 - name: Copy Unbound configuration
   template:
-    src: unbound.conf.j2
+    src: unbound.conf
     dest: /srv/unbound/unbound.conf
     owner: root
     group: root
@@ -23,7 +23,7 @@
 
     docker container run \
       --detach \
-      --env TZ="{{ system_timezone }}" \
+      --env TZ={{ system_timezone }} \
       --init \
       --name unbound \
       --network host \
