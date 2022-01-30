@@ -1,0 +1,44 @@
+- name: Add APT key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    keyring: /usr/share/keyrings/docker-archive-keyring.gpg
+
+- name: Add APT repository
+  ansible.builtin.apt_repository:
+    filename: docker
+    repo: deb [arch={{ containerd_architecture }} signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ containerd_apt_release }} stable
+
+- name: Ensure directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+  - /etc/cni/net.d
+  - /etc/containerd
+
+- name: Copy files
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+  - src: 10-containerd.conflist
+    dest: /etc/cni/net.d/10-containerd.conflist
+  - src: config.toml
+    dest: /etc/containerd/config.toml
+
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    install_recommends: no
+    update_cache: yes
+  loop:
+  - containerd.io
+  - containernetworking-plugins
+
+- name: Start service
+  ansible.builtin.service:
+    enabled: yes
+    name: "{{ item }}"
+    state: started
+  loop:
+  - containerd

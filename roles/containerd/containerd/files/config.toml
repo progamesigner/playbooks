@@ -1,0 +1,18 @@
+version = 2
+
+[grpc]
+  address = "/var/run/containerd.sock"
+
+[plugins]
+  [plugins."io.containerd.grpc.v1.cri".cni]
+    bin_dir = "/usr/lib/cni"
+
+  [plugins."io.containerd.grpc.v1.cri"]
+    [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+      runtime_type = "io.containerd.runc.v2"
+
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+        SystemdCgroup = true
+
+  [plugins."io.containerd.internal.v1.opt"]
+    path = "/var/containerd"

@@ -1,0 +1,49 @@
+- name: Setup Kernel Modules for containerd
+  community.general.modprobe:
+    name: "{{ item }}"
+  loop:
+  - br_netfilter
+  - bridge
+  - overlay
+
+- name: Persist Kernel Modules
+  ansible.builtin.copy:
+    dest: /etc/modules-load.d/{{ item }}.conf
+    content: "{{ item }}"
+  loop:
+  - br_netfilter
+  - bridge
+  - overlay
+
+- name: Configure Kernel Parameters
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  loop:
+  - name: net.bridge.bridge-nf-call-arptables
+    value: 1
+  - name: net.bridge.bridge-nf-call-iptables
+    value: 1
+  - name: net.bridge.bridge-nf-call-ip6tables
+    value: 1
+  - name: net.ipv4.conf.all.rp_filter
+    value: 1
+  - name: net.ipv4.ip_forward
+    value: 1
+  - name: net.ipv4.ip_nonlocal_bind
+    value: 1
+  - name: vm.max_map_count
+    value: 262144
+
+# - name: Copy Files
+#   ansible.builtin.copy:
+#     src: "{{ item.src }}"
+#     dest: "{{ item.dest }}"
+#   loop:
+#   - src: 90-cgroups.cfg
+#     dest: /etc/default/grub.d/90-cgroups.cfg
+#
+### GRUB_CMDLINE_LINUX_DEFAULT="${GRUB_CMDLINE_LINUX_DEFAULT} systemd.unified_cgroup_hierarchy=1"
+#
+# - name: Update GRUB
+#   ansible.builtin.command: update-grub
