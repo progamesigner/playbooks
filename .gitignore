@@ -2,3 +2,7 @@
 **/.vscode
 **/*.retry
 **/envs
+ca.*
+cert.*
+key.*
+kubeconfig

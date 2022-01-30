@@ -1,9 +1,9 @@
-# Structure
- - hub
- - gateway
+# Playbooks
+
+A collection of Ansible Playbooks
 
 ```
 ssh-copy-id -i ~/.ssh/id_<NAME> <USER>@<HOST>
-ansible-playbook --inventory hosts.ini home.yaml
-ansible-playbook --inventory hosts.ini controller.yaml
+pipenv run home
+pipenv run controller
 ```
