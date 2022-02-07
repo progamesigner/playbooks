@@ -35,13 +35,44 @@
   - name: vm.max_map_count
     value: 262144
 
-- name: Copy Files
-  ansible.builtin.copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  loop:
-  - src: 90-cgroups.cfg
-    dest: /etc/default/grub.d/90-cgroups.cfg
+- name: Configure boot options
+  block:
+  - name: Check GRUB
+    ansible.builtin.stat:
+      path: /etc/default/grub
+    register: grub
 
-- name: Update GRUB
-  ansible.builtin.command: update-grub
+  - name: Check U-Boot
+    ansible.builtin.stat:
+      path: /boot/firmware/config.txt
+    register: uboot
+
+  - name: Configure boot options (GRUB)
+    block:
+    - name: Copy files
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop:
+      - src: 90-cgroups.cfg
+        dest: /etc/default/grub.d/90-cgroups.cfg
+    - name: Update GRUB
+      ansible.builtin.command: update-grub
+    when: grub.stat.exists
+
+  - name: Configure boot options (U-Boot)
+    block:
+    - name: Copy files
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop:
+      - src: cmdline.txt
+        dest: /boot/firmware/cmdline.txt
+    - name: Update boot configurations
+      ansible.builtin.lineinfile:
+        path: /boot/firmware/usercfg.txt
+        line: cmdline=cmdline.txt
+        state: present
+
+    when: uboot.stat.exists
