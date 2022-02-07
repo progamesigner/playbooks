@@ -1,6 +1,7 @@
 - name: Upgrade system
-  ansible.builtin.package:
-    force_apt_get: yes
+  ansible.builtin.apt:
+    autoclean: yes
+    autoremove: yes
     install_recommends: no
     update_cache: yes
     upgrade: full
