@@ -1,2 +1,3 @@
 docker_apt_release: focal
 docker_architecture: amd64
+install_docker_scan_plugin: true

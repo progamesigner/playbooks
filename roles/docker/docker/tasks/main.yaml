@@ -41,7 +41,15 @@
   loop:
   - docker-ce
   - docker-ce-cli
+
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    install_recommends: no
+    update_cache: yes
+  loop:
   - docker-scan-plugin
+  when: install_docker_scan_plugin | bool
 
 - name: Start service
   ansible.builtin.service:
