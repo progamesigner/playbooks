@@ -26,14 +26,6 @@
     value: 1
   - name: net.bridge.bridge-nf-call-ip6tables
     value: 1
-  - name: net.ipv4.conf.all.rp_filter
-    value: 1
-  - name: net.ipv4.ip_forward
-    value: 1
-  - name: net.ipv4.ip_nonlocal_bind
-    value: 1
-  - name: vm.max_map_count
-    value: 262144
 
 - name: Configure boot options
   block:
