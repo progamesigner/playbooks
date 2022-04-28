@@ -16,4 +16,4 @@
       --network host \
       --restart unless-stopped \
       --volume /srv/unifi-controller:/config \
-      linuxserver/unifi-controller:7.0.25-ls147
+      linuxserver/unifi-controller:7.1.61-ls147
