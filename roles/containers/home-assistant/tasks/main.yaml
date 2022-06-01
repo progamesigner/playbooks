@@ -8,7 +8,6 @@
     docker container run \
       --detach \
       --env TZ={{ system_timezone }} \
-      --init \
       --name home-assistant \
       --network host \
       --restart unless-stopped \
