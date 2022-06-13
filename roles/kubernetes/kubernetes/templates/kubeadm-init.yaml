@@ -28,11 +28,8 @@ nodeRegistration:
   name: {{ inventory_hostname }}
   criSocket: /var/run/containerd.sock
   kubeletExtraArgs:
-    cni-bin-dir: /usr/lib/cni
-    cni-conf-dir: /etc/cni/net.d
     container-runtime-endpoint: unix:///var/run/containerd.sock
     container-runtime: remote
-    network-plugin: cni
   taints: []
 skipPhases:
 - addon/coredns
