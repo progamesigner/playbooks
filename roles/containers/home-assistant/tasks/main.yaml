@@ -12,4 +12,4 @@
       --network host \
       --restart unless-stopped \
       --volume /srv/home-assistant:/config \
-      ghcr.io/home-assistant/home-assistant:2022.10.1
+      ghcr.io/home-assistant/home-assistant:2022.10.2
