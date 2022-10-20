@@ -24,7 +24,7 @@
     state: directory
     path: "{{ item }}"
   loop:
-  - /home/syncthing
+  - /srv/syncthing
 
 - name: Start service
   ansible.builtin.service:
