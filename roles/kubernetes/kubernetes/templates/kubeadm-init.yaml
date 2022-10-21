@@ -5,7 +5,7 @@ kubernetesVersion: v{{ kubernetes_version }}
 clusterName: kubernetes
 controlPlaneEndpoint: {{ kubernetes_control_plane_address }}:{{ kubernetes_control_plane_port }}
 apiServer:
-  certSANS:
+  certSANs:
   - localhost
   - {{ kubernetes_control_plane_address }}
 networking:
@@ -26,7 +26,7 @@ localAPIEndpoint:
   advertiseAddress: {{ kubernetes_control_plane_advertise_address }}
 nodeRegistration:
   name: {{ inventory_hostname }}
-  criSocket: /var/run/containerd.sock
+  criSocket: unix:///var/run/containerd.sock
   kubeletExtraArgs:
     container-runtime-endpoint: unix:///var/run/containerd.sock
     container-runtime: remote
