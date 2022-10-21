@@ -1,2 +1,2 @@
-zerotier_apt_release: bionic
+zerotier_apt_release: jammy
 zerotier_architecture: amd64

@@ -6,7 +6,7 @@
 - name: Add APT repository
   ansible.builtin.apt_repository:
     filename: zerotier
-    repo: deb [arch={{ zerotier_architecture }} signed-by=/usr/share/keyrings/zerotier-archive-keyring.gpg] https://download.zerotier.com/debian/bionic {{ zerotier_apt_release }} main
+    repo: deb [arch={{ zerotier_architecture }} signed-by=/usr/share/keyrings/zerotier-archive-keyring.gpg] https://download.zerotier.com/debian/jammy {{ zerotier_apt_release }} main
 
 - name: Install packages
   ansible.builtin.package:
