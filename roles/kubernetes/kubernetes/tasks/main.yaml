@@ -59,7 +59,9 @@
 
   - name: Install packages
     ansible.builtin.package:
+      allow_downgrade: yes
       deb: /tmp/kubernetes-cni_0.8.7-00_dummy.deb
+      install_recommends: no
 
   - name: Clean up
     ansible.builtin.file:
