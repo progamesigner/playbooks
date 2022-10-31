@@ -50,24 +50,6 @@
   - src: kube-router-kubeconfig.yaml
     dest: /var/lib/kube-router/kubeconfig
 
-- name: Make `kubernetes-cni` installed
-  block:
-  - name: Copy files
-    ansible.builtin.copy:
-      src: kubernetes-cni_0.8.7-00_dummy.deb
-      dest: /tmp/kubernetes-cni_0.8.7-00_dummy.deb
-
-  - name: Install packages
-    ansible.builtin.package:
-      allow_downgrade: yes
-      deb: /tmp/kubernetes-cni_0.8.7-00_dummy.deb
-      install_recommends: no
-
-  - name: Clean up
-    ansible.builtin.file:
-      path: /tmp/kubernetes-cni_0.8.7-00_dummy.deb
-      state: absent
-
 - name: Install packages
   ansible.builtin.package:
     name: "{{ item }}"
