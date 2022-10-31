@@ -3,10 +3,20 @@
     url: https://download.docker.com/linux/ubuntu/gpg
     keyring: /usr/share/keyrings/docker-archive-keyring.gpg
 
+- name: Add APT key
+  ansible.builtin.apt_key:
+    url: https://apt.kubernetes.io/doc/apt-key.gpg
+    keyring: /usr/share/keyrings/kubernetes-archive-keyring.gpg
+
 - name: Add APT repository
   ansible.builtin.apt_repository:
     filename: docker
     repo: deb [arch={{ containerd_architecture }} signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ containerd_apt_release }} stable
+
+- name: Add APT repository
+  ansible.builtin.apt_repository:
+    filename: kubernetes
+    repo: deb [arch={{ kubernetes_architecture }} signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io {{ kubernetes_apt_release }} main
 
 - name: Ensure directories
   ansible.builtin.file:
@@ -33,7 +43,7 @@
     update_cache: yes
   loop:
   - containerd.io
-  - containernetworking-plugins
+  - kubernetes-cni
 
 - name: Start service
   ansible.builtin.service:
