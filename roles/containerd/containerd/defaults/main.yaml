@@ -1,2 +1,4 @@
 containerd_apt_release: jammy
 containerd_architecture: amd64
+kubernetes_apt_release: kubernetes-xenial
+kubernetes_architecture: amd64
