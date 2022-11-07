@@ -11,3 +11,4 @@
   - role: docker/docker
   - role: kubernetes/os
   - role: kubernetes/kubernetes
+  - role: containers/vscode-server

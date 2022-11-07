@@ -1,0 +1,44 @@
+- name: Create directory
+  file:
+    group: root
+    mode: 0755
+    owner: root
+    path: /tmp/vscode-server
+    state: directory
+
+- name: Create VSCode Server directory
+  file:
+    group: 1000
+    mode: 0755
+    owner: 1000
+    path: /srv/vscode-server
+    state: directory
+
+- name: Copy files
+  ansible.builtin.copy:
+    src: Dockerfile
+    dest: /tmp/vscode-server/Dockerfile
+
+- name: Build & start VSCode Server container
+  shell: |
+    docker build -t vscode-server /tmp/vscode-server
+
+    if [ -n "$(docker container list --all --quiet --filter name=vscode-server)" ]; then
+      docker container stop vscode-server
+      docker container rm -v vscode-server
+    fi
+
+    docker container run \
+      --detach \
+      --name vscode-server \
+      --network host \
+      --restart unless-stopped \
+      --user vscode \
+      --mount source=/srv/syncthing/codespaces,target=/home/vscode/codespaces,type=bind,consistency=cached \
+      --volume /srv/vscode-server:/opt/vscode-server \
+      vscode-server --accept-server-license-terms --server-data-dir=/opt/vscode-server
+
+- name: Clean up
+  ansible.builtin.file:
+    path: /tmp/vscode-server
+    state: absent
