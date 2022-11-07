@@ -8,4 +8,4 @@ ansible = "~=5.2"
 
 [scripts]
 controller = "ansible-playbook controller.yaml"
-home = "ansible-playbook home.yaml"
+hub = "ansible-playbook hub.yaml"

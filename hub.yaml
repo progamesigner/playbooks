@@ -1,4 +1,4 @@
-- hosts: home
+- hosts: hub
   become: yes
   roles:
   - role: system/os
