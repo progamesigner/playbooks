@@ -1,3 +1,8 @@
+- name: Copy files
+  ansible.builtin.copy:
+    src: configuration.yaml
+    dest: /srv/home-assistant/configuration.yaml
+
 - name: Start Home Assistant container
   shell: |
     if [ -n "$(docker container list --all --quiet --filter name=home-assistant)" ]; then
