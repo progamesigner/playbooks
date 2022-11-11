@@ -12,7 +12,7 @@ ARG VSCODE_PATH=/usr/local/bin/code-server
 ARG VSCODE_TARGET=unknown-linux-gnu
 
 RUN apt-get update \
- && apt-get install --no-install-recommends -y ca-certificates curl \
+ && apt-get install --no-install-recommends -y ca-certificates curl git \
  && groupadd -g ${USER_GID} ${USERNAME} \
  && useradd -ms /bin/bash -g ${USER_GID} -u ${USER_UID} ${USERNAME} \
  && curl -sSL https://aka.ms/vscode-server-launcher/${VSCODE_ARCH}-${VSCODE_TARGET} -o ${VSCODE_PATH} \
