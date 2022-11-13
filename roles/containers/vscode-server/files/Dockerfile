@@ -1,7 +1,4 @@
-ARG DISTRO=ubuntu
-ARG VARIANT=jammy
-
-FROM ${DISTRO}:${VARIANT}
+FROM ubuntu:jammy
 
 ARG FEATURE_VERSION=master
 
@@ -35,8 +32,8 @@ ENV NPM_HOME=/usr/local/npm
 ENV PATH=${CARGO_HOME}/bin:${GOROOT}/bin:${GOPATH}/bin:${NPM_HOME}/bin:${PATH}
 
 RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends --yes apt-utils bash ca-certificates curl git gnupg2 \
- && bash -c "$(curl -fsSL https://raw.githubusercontent.com/progamesigner/devcontainers/${FEATURE_VERSION}/images/${DISTRO}/setup.sh)" -- "${USERNAME}" "${USER_UID}" "${USER_GID}" \
+ && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends --yes apt-utils ca-certificates curl \
+ && bash -c "$(curl -fsSL https://raw.githubusercontent.com/progamesigner/devcontainers/${FEATURE_VERSION}/images/ubuntu/setup.sh)" -- "${USERNAME}" "${USER_UID}" "${USER_GID}" \
  && bash -c "$(curl -fsSL https://raw.githubusercontent.com/progamesigner/devcontainers/${FEATURE_VERSION}/features/devtools/install.sh)" \
  && bash -c "$(curl -fsSL https://raw.githubusercontent.com/progamesigner/devcontainers/${FEATURE_VERSION}/features/docker/install.sh)" -- "${DOCKER_VERSION}" "${DOCKER_COMPOSE_VERSION}" \
  && bash -c "$(curl -fsSL https://raw.githubusercontent.com/progamesigner/devcontainers/${FEATURE_VERSION}/features/go/install.sh)" -- "${GO_VERSION}" \
