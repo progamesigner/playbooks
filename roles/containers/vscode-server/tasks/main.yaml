@@ -35,6 +35,11 @@
       --restart unless-stopped \
       --user vscode \
       --mount source=/srv/syncthing/codespaces,target=/home/vscode/codespaces,type=bind,consistency=cached \
+      --mount source=dev-vscode-docker,target=/home/vscode/.docker,type=volume \
+      --mount source=dev-vscode-git,target=/home/vscode/.git,type=volume \
+      --mount source=dev-vscode-gpg,target=/home/vscode/.gnupg,type=volume \
+      --mount source=dev-vscode-kubernetes,target=/home/vscode/.kube,type=volume \
+      --mount source=dev-vscode-ssh,target=/home/vscode/.ssh,type=volume \
       --volume /srv/vscode-server:/opt/vscode-server \
       vscode-server --accept-server-license-terms --server-data-dir=/opt/vscode-server
 
