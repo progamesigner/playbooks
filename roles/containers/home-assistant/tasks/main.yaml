@@ -1,3 +1,20 @@
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    install_recommends: no
+    update_cache: yes
+  loop:
+  - bluez
+  - dbus-broker
+
+- name: Start services
+  ansible.builtin.service:
+    enabled: yes
+    name: "{{ item }}"
+    state: started
+  loop:
+  - dbus-broker
+
 - name: Copy files
   ansible.builtin.copy:
     src: configuration.yaml
@@ -16,5 +33,6 @@
       --name home-assistant \
       --network host \
       --restart unless-stopped \
+      --volume /run/dbus:/run/dbus:ro \
       --volume /srv/home-assistant:/config \
       ghcr.io/home-assistant/home-assistant:2022.11.2
