@@ -23,7 +23,7 @@
   when:
   - zerotier_network_id is defined
 
-- name: Start service
+- name: Start services
   ansible.builtin.service:
     enabled: yes
     name: "{{ item }}"

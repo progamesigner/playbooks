@@ -45,7 +45,7 @@
   - containerd.io
   - kubernetes-cni
 
-- name: Start service
+- name: Start services
   ansible.builtin.service:
     enabled: yes
     name: "{{ item }}"
