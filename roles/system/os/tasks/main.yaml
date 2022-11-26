@@ -12,6 +12,7 @@
   - openssh-server
   - software-properties-common
   - sudo
+  - unzip
 
 - name: Setup hostname
   ansible.builtin.hostname:
