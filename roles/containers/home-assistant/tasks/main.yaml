@@ -20,6 +20,11 @@
     src: configuration.yaml
     dest: /srv/home-assistant/configuration.yaml
 
+- name: Install addons
+  ansible.builtin.include_tasks: addon.yaml
+  loop:
+  - https://github.com/osk2/panasonic_smart_app/archive/refs/tags/v2.4.0.tar.gz
+
 - name: Start Home Assistant container
   shell: |
     if [ -n "$(docker container list --all --quiet --filter name=home-assistant)" ]; then

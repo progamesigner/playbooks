@@ -1,0 +1,13 @@
+- name: Download addon
+  ansible.builtin.get_url:
+    dest: /tmp/home-assistant-addon.tar.gz
+    url: "{{ item }}"
+
+- name: Extract addon
+  ansible.builtin.shell: |
+    tar --directory /srv/home-assistant --extract --file /tmp/home-assistant-addon.tar.gz --strip-components=1 --wildcards */custom_components
+
+- name: Clean up
+  ansible.builtin.file:
+    path: /tmp/home-assistant-addon.tar.gz
+    state: absent
