@@ -32,7 +32,7 @@ ENV NPM_HOME=/usr/local/npm
 ENV PATH=${CARGO_HOME}/bin:${GOROOT}/bin:${GOPATH}/bin:${NPM_HOME}/bin:${PATH}
 
 RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends --yes apt-utils ca-certificates curl \
+ && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends --yes apt-utils ca-certificates curl gnupg2 pinentry-tty \
  && bash -c "$(curl -fsSL https://raw.githubusercontent.com/progamesigner/devcontainers/${FEATURE_VERSION}/images/ubuntu/setup.sh)" -- "${USERNAME}" "${USER_UID}" "${USER_GID}" \
  && bash -c "$(curl -fsSL https://raw.githubusercontent.com/progamesigner/devcontainers/${FEATURE_VERSION}/features/devtools/install.sh)" \
  && bash -c "$(curl -fsSL https://raw.githubusercontent.com/progamesigner/devcontainers/${FEATURE_VERSION}/features/go/install.sh)" -- "${GO_VERSION}" \
@@ -47,8 +47,10 @@ RUN apt-get update \
  && curl -sSL https://aka.ms/vscode-server-launcher/${VSCODE_ARCH}-${VSCODE_TARGET} -o ${VSCODE_PATH} \
  && chown ${USERNAME} ${VSCODE_PATH} \
  && chmod +x ${VSCODE_PATH} \
+ && apt-get remove pinentry-curses \
  && apt-get autoremove --yes \
  && apt-get clean --yes \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
+ && echo "export GPG_TTY=\$(tty)" >> /home/${USERNAME}/.bashrc
 
 ENTRYPOINT ["code-server"]
