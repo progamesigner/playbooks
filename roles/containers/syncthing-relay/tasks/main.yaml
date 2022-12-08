@@ -11,6 +11,7 @@
     if [ -z "$(docker container list --all --quiet --filter name=syncthing-relay)" ]; then
       docker container run \
         --detach \
+        --env TZ={{ system_timezone }} \
         --init \
         --name syncthing-relay \
         --network host \
