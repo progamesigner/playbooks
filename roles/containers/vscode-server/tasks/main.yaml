@@ -30,18 +30,20 @@
 
     docker container run \
       --detach \
-      --name vscode-server \
-      --network host \
-      --restart unless-stopped \
-      --user vscode \
+      --env TZ={{ system_timezone }} \
+      --env VSCODE_CLI_DATA_DIR=/opt/vscode-server \
       --mount source=/srv/syncthing/codespaces,target=/home/vscode/codespaces,type=bind,consistency=cached \
       --mount source=dev-vscode-docker,target=/home/vscode/.docker,type=volume \
       --mount source=dev-vscode-git,target=/home/vscode/.git,type=volume \
       --mount source=dev-vscode-gpg,target=/home/vscode/.gnupg,type=volume \
       --mount source=dev-vscode-kubernetes,target=/home/vscode/.kube,type=volume \
       --mount source=dev-vscode-ssh,target=/home/vscode/.ssh,type=volume \
+      --name vscode-server \
+      --network host \
+      --restart unless-stopped \
+      --user vscode \
       --volume /srv/vscode-server:/opt/vscode-server \
-      vscode-server --accept-server-license-terms --server-data-dir=/opt/vscode-server
+      vscode-server --accept-server-license-terms --name={{ vscode_server_name }}
 
 - name: Clean up
   ansible.builtin.file:

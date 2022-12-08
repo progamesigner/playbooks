@@ -6,9 +6,7 @@ ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
-ARG VSCODE_ARCH=x86_64
-ARG VSCODE_PATH=/usr/local/bin/code-server
-ARG VSCODE_TARGET=unknown-linux-gnu
+ARG VSCODE_URL=https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64
 
 ARG CRD2PULUMI_VERSION=1.2.3
 ARG DOCKER_COMPOSE_VERSION=2.12.1
@@ -44,13 +42,13 @@ RUN apt-get update \
  && bash -c "$(curl -fsSL https://raw.githubusercontent.com/progamesigner/devcontainers/${FEATURE_VERSION}/features/kubernetes/install.sh)" -- "${KUBECTL_VERSION}" \
  && bash -c "$(curl -fsSL https://raw.githubusercontent.com/progamesigner/devcontainers/${FEATURE_VERSION}/features/pulumi/install.sh)" -- "${PULUMI_VERSION}" "${CRD2PULUMI_VERSION}" \
  && bash -c "$(curl -fsSL https://raw.githubusercontent.com/progamesigner/devcontainers/${FEATURE_VERSION}/features/hugo/install.sh)" -- "${HUGO_VERSION}" \
- && curl -sSL https://aka.ms/vscode-server-launcher/${VSCODE_ARCH}-${VSCODE_TARGET} -o ${VSCODE_PATH} \
- && chown ${USERNAME} ${VSCODE_PATH} \
- && chmod +x ${VSCODE_PATH} \
+ && curl -sSL ${VSCODE_URL} -o /tmp/code.tar.gz \
+ && tar --directory=/usr/local/bin --extract --file /tmp/code.tar.gz \
  && apt-get remove pinentry-curses \
  && apt-get autoremove --yes \
  && apt-get clean --yes \
+ && rm -rf /tmp/code.tar.gz \
  && rm -rf /var/lib/apt/lists/* \
  && echo "export GPG_TTY=\$(tty)" >> /home/${USERNAME}/.bashrc
 
-ENTRYPOINT ["code-server"]
+ENTRYPOINT ["/usr/local/bin/code", "tunnel"]
