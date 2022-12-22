@@ -41,4 +41,4 @@
       --restart unless-stopped \
       --volume /run/dbus:/run/dbus:ro \
       --volume /srv/home-assistant:/config \
-      ghcr.io/home-assistant/home-assistant:2022.12.7
+      ghcr.io/home-assistant/home-assistant:2022.12.8
