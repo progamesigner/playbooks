@@ -14,4 +14,4 @@
       --restart unless-stopped \
       --volume /srv/adguard-home/conf:/opt/adguardhome/conf \
       --volume /srv/adguard-home/work:/opt/adguardhome/work \
-      adguard/adguardhome:v0.107.21
+      adguard/adguardhome:v0.107.22
