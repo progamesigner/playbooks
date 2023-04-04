@@ -33,17 +33,21 @@
       --env TZ={{ system_timezone }} \
       --env VSCODE_CLI_DATA_DIR=/opt/vscode-server \
       --mount source=/srv/syncthing/codespaces,target=/home/vscode/codespaces,type=bind,consistency=cached \
+      --mount source=/srv/syncthing/dotfiles,target=/home/vscode/.dotfiles,type=bind,consistency=cached \
+      --mount source=dev-tunnel-git,target=/home/vscode/.git,type=volume \
+      --mount source=dev-tunnel-gpg,target=/home/vscode/.gnupg,type=volume \
+      --mount source=dev-tunnel-ssh,target=/home/vscode/.ssh,type=volume \
       --mount source=dev-vscode-docker,target=/home/vscode/.docker,type=volume \
-      --mount source=dev-vscode-git,target=/home/vscode/.git,type=volume \
-      --mount source=dev-vscode-gpg,target=/home/vscode/.gnupg,type=volume \
       --mount source=dev-vscode-kubernetes,target=/home/vscode/.kube,type=volume \
-      --mount source=dev-vscode-ssh,target=/home/vscode/.ssh,type=volume \
       --name vscode-server \
       --network host \
       --restart unless-stopped \
       --user vscode \
       --volume /srv/vscode-server:/opt/vscode-server \
       vscode-server --accept-server-license-terms --name={{ vscode_server_name }}
+
+  ln -s /srv/syncthing/dotfiles/.docker /var/lib/docker/volumes/dev-vscode-docker/_data
+  ln -s /srv/syncthing/dotfiles/.kubernetes /var/lib/docker/volumes/dev-vscode-kubernetes/_data
 
 - name: Clean up
   ansible.builtin.file:
