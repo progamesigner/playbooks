@@ -46,8 +46,16 @@
       --volume /srv/vscode-server:/opt/vscode-server \
       vscode-server --accept-server-license-terms --name={{ vscode_server_name }}
 
-  ln -s /srv/syncthing/dotfiles/.docker /var/lib/docker/volumes/dev-vscode-docker/_data
-  ln -s /srv/syncthing/dotfiles/.kubernetes /var/lib/docker/volumes/dev-vscode-kubernetes/_data
+- name: Link dotfiles
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+  - src: /srv/syncthing/dotfiles/.docker
+    dest: /var/lib/docker/volumes/dev-vscode-docker/_data
+  - src: /srv/syncthing/dotfiles/.kubernetes
+    dest: /var/lib/docker/volumes/dev-vscode-kubernetes/_data
 
 - name: Clean up
   ansible.builtin.file:
