@@ -1,12 +1,12 @@
 - name: Add APT key
   ansible.builtin.apt_key:
     url: https://download.zerotier.com/contact@zerotier.com.gpg
-    keyring: /usr/share/keyrings/zerotier-archive-keyring.gpg
+    keyring: /etc/apt/keyrings/zerotier-archive-keyring.gpg
 
 - name: Add APT repository
   ansible.builtin.apt_repository:
     filename: zerotier
-    repo: deb [arch={{ zerotier_architecture }} signed-by=/usr/share/keyrings/zerotier-archive-keyring.gpg] https://download.zerotier.com/debian/{{ zerotier_apt_release }} {{ zerotier_apt_release }} main
+    repo: deb [arch={{ zerotier_architecture }} signed-by=/etc/apt/keyrings/zerotier-archive-keyring.gpg] https://download.zerotier.com/debian/{{ zerotier_apt_release }} {{ zerotier_apt_release }} main
 
 - name: Install packages
   ansible.builtin.package:

@@ -1,12 +1,12 @@
 - name: Add APT key
   ansible.builtin.apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
-    keyring: /usr/share/keyrings/docker-archive-keyring.gpg
+    keyring: /etc/apt/keyrings/docker-archive-keyring.gpg
 
 - name: Add APT repository
   ansible.builtin.apt_repository:
     filename: docker
-    repo: deb [arch={{ docker_architecture }} signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ docker_apt_release }} stable
+    repo: deb [arch={{ docker_architecture }} signed-by=/etc/apt/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ docker_apt_release }} stable
 
 - name: Ensure directories
   ansible.builtin.file:
