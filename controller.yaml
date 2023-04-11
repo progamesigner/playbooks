@@ -10,5 +10,4 @@
   - role: docker/os
   - role: docker/docker
   - role: containers/adguard-home
-  - role: containers/syncthing-relay
   - role: containers/unifi-controller
