@@ -9,5 +9,4 @@
   - role: containerd/containerd
   - role: docker/os
   - role: docker/docker
-  - role: containers/adguard-home
   - role: containers/unifi-controller
