@@ -9,4 +9,3 @@
   - role: containerd/containerd
   - role: docker/os
   - role: docker/docker
-  - role: containers/home-assistant
