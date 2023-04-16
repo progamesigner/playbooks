@@ -47,7 +47,7 @@
     dest: /etc/kubernetes/kubeadm/manifest-kube-router.yaml
   - src: kubeadm-init.yaml
     dest: /etc/kubernetes/kubeadm/init.yaml
-  - src: kube-router-kubeconfig.yaml
+  - src: kubeconfig.yaml
     dest: /var/lib/kube-router/kubeconfig
 
 - name: Install packages
