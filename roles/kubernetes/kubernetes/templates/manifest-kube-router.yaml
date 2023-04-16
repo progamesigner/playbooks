@@ -94,7 +94,7 @@ spec:
     spec:
       initContainers:
       - name: install-cni
-        image: docker.io/cloudnativelabs/kube-router:v1.4.0
+        image: docker.io/cloudnativelabs/kube-router:v1.5.3
         command:
         - /bin/sh
         - -c
@@ -114,7 +114,7 @@ spec:
           mountPath: /etc/kube-router
       containers:
       - name: kube-router
-        image: docker.io/cloudnativelabs/kube-router:v1.4.0
+        image: docker.io/cloudnativelabs/kube-router:v1.5.3
         args:
         - --kubeconfig=/var/lib/kube-router/kubeconfig
         - --bgp-graceful-restart=true
