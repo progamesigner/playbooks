@@ -128,10 +128,11 @@ spec:
             scheme: HTTP
         resources:
           limits:
-            memory: 170Mi
+            cpu: 1000m
+            memory: 192Mi
           requests:
             cpu: 100m
-            memory: 70Mi
+            memory: 64Mi
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:

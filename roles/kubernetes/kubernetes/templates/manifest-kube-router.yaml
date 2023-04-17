@@ -8,10 +8,10 @@ data:
   cni-conf.json: |
     {
       "cniVersion": "1.0.0",
-      "name": "kuberouter",
+      "name": "kube-router",
       "plugins": [
         {
-          "name": "kuberouter",
+          "name": "kube-router",
           "type": "bridge",
           "bridge": "kube-bridge",
           "isDefaultGateway": true,
@@ -99,7 +99,11 @@ spec:
         - /bin/sh
         - -c
         - set -ex;
-          cp /etc/kube-router/cni-conf.json /etc/cni/net.d/10-kuberouter.conflist;
+          cp /etc/kube-router/20-kube-router.conflist /etc/cni/net.d/20-kube-router.conflist;
+        resources:
+          requests:
+            cpu: 50m
+            memory: 16Mi
         volumeMounts:
         - name: cni-conf-dir
           mountPath: /etc/cni/net.d
@@ -119,7 +123,11 @@ spec:
             fieldRef:
               fieldPath: spec.nodeName
         - name: KUBE_ROUTER_CNI_CONF_FILE
-          value: /etc/cni/net.d/10-kuberouter.conflist
+          value: /etc/cni/net.d/20-kube-router.conflist
+        - name: KUBERNETES_SERVICE_HOST
+          value: {{ kubernetes_control_plane_address }}
+        - name: KUBERNETES_SERVICE_PORT
+          value: "{{ kubernetes_control_plane_port }}"
         livenessProbe:
           httpGet:
             path: /healthz
@@ -127,9 +135,12 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 3
         resources:
+          limits:
+            cpu: 1000m
+            memory: 256Mi
           requests:
             cpu: 250m
-            memory: 250Mi
+            memory: 256Mi
         securityContext:
           privileged: true
         volumeMounts:
@@ -158,6 +169,9 @@ spec:
       - name: kube-router
         configMap:
           name: kube-router
+          items:
+          - key: cni-conf.json
+            path: 20-kube-router.conflist
       - name: lib-modules
         hostPath:
           path: /lib/modules
