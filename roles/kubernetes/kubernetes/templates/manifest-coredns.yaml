@@ -98,7 +98,7 @@ spec:
     spec:
       containers:
       - name: coredns
-        image: k8s.gcr.io/coredns/coredns:v1.8.6
+        image: coredns/coredns:1.10.1
         args:
         - -conf
         - /etc/coredns/Corefile
@@ -154,9 +154,6 @@ spec:
         - name: coredns
           configMap:
             name: coredns
-            items:
-            - key: Corefile
-              path: Corefile
 ---
 apiVersion: v1
 kind: Service
