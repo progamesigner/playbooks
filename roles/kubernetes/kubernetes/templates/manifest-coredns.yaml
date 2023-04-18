@@ -98,7 +98,7 @@ spec:
     spec:
       containers:
       - name: coredns
-        image: coredns/coredns:1.10.1
+        image: registry.k8s.io/coredns/coredns:v1.10.1
         args:
         - -conf
         - /etc/coredns/Corefile
