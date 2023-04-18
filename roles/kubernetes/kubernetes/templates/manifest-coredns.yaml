@@ -81,12 +81,12 @@ metadata:
   name: coredns
   namespace: kube-system
   labels:
-    k8s-app: coredns
+    k8s-app: kube-dns
 spec:
   replicas: 2
   selector:
     matchLabels:
-      k8s-app: coredns
+      k8s-app: kube-dns
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -94,7 +94,7 @@ spec:
   template:
     metadata:
       labels:
-        k8s-app: coredns
+        k8s-app: kube-dns
     spec:
       containers:
       - name: coredns
@@ -165,9 +165,9 @@ metadata:
   name: coredns
   namespace: kube-system
   labels:
-    k8s-app: coredns
+    k8s-app: kube-dns
     kubernetes.io/cluster-service: 'true'
-    kubernetes.io/name: 'CoreDNS'
+    kubernetes.io/name: CoreDNS
   resourceVersion: '0'
 spec:
   clusterIP: {{ kubernetes_cluster_dns }}
@@ -185,4 +185,4 @@ spec:
     protocol: TCP
     targetPort: 9153
   selector:
-    k8s-app: coredns
+    k8s-app: kube-dns
