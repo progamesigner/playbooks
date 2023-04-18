@@ -42,6 +42,8 @@
     dest: /etc/kubernetes/kubeadm/manifest-coredns.yaml
   - src: manifest-kube-router.yaml
     dest: /etc/kubernetes/kubeadm/manifest-kube-router.yaml
+  - src: manifest-multus.yaml
+    dest: /etc/kubernetes/kubeadm/manifest-multus.yaml
   - src: kubeadm-init.yaml
     dest: /etc/kubernetes/kubeadm/init.yaml
 
@@ -75,6 +77,7 @@
   loop:
   - coredns
   - kube-router
+  - multus
 
 - name: Fetch Kubeconfig
   ansible.builtin.fetch:
