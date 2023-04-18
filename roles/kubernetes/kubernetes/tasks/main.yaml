@@ -50,8 +50,7 @@
 - name: Install packages
   ansible.builtin.package:
     name: "{{ item }}"
-    install_recommends: no
-    update_cache: yes
+    state: latest
   loop:
   - kubeadm
   - kubectl
