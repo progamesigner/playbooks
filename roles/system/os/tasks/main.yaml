@@ -4,8 +4,10 @@
     state: latest
   loop:
   - apt-transport-https
+  - bluez
   - ca-certificates
   - curl
+  - dbus-broker
   - gnupg2
   - locales
   - openssh-server
@@ -69,5 +71,6 @@
     name: "{{ item }}"
     state: started
   loop:
+  - dbus-broker
   - ssh
   - systemd-timesyncd
