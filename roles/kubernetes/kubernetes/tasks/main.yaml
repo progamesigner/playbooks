@@ -38,8 +38,6 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   loop:
-  - src: manifest-coredns.yaml
-    dest: /etc/kubernetes/kubeadm/manifest-coredns.yaml
   - src: kubeadm-init.yaml
     dest: /etc/kubernetes/kubeadm/init.yaml
 
@@ -64,13 +62,6 @@
   ansible.builtin.command: kubeadm init --config /etc/kubernetes/kubeadm/init.yaml
   args:
     creates: /etc/kubernetes/pki/apiserver.key
-
-- name: Setup Kubernetes Components
-  ansible.builtin.command: kubectl apply -f /etc/kubernetes/kubeadm/manifest-{{ item }}.yaml
-  environment:
-    KUBECONFIG: /etc/kubernetes/admin.conf
-  loop:
-  - coredns
 
 - name: Fetch Kubeconfig
   ansible.builtin.fetch:
