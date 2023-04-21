@@ -40,8 +40,6 @@
   loop:
   - src: manifest-coredns.yaml
     dest: /etc/kubernetes/kubeadm/manifest-coredns.yaml
-  - src: manifest-kube-router.yaml
-    dest: /etc/kubernetes/kubeadm/manifest-kube-router.yaml
   - src: kubeadm-init.yaml
     dest: /etc/kubernetes/kubeadm/init.yaml
 
@@ -73,7 +71,6 @@
     KUBECONFIG: /etc/kubernetes/admin.conf
   loop:
   - coredns
-  - kube-router
 
 - name: Fetch Kubeconfig
   ansible.builtin.fetch:
