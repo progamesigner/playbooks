@@ -7,5 +7,4 @@ name = "pypi"
 ansible = "~=5.2"
 
 [scripts]
-controller = "ansible-playbook controller.yaml"
-hub = "ansible-playbook hub.yaml"
+kubernetes = "ansible-playbook kubernetes.yaml"
