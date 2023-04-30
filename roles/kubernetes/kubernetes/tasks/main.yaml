@@ -40,6 +40,8 @@
   loop:
   - src: kubeadm-init.yaml
     dest: /etc/kubernetes/kubeadm/init.yaml
+  - src: manifest.yaml
+    dest: /etc/kubernetes/kubeadm/manifest.yaml
 
 - name: Install packages
   ansible.builtin.package:
@@ -63,6 +65,11 @@
   ansible.builtin.command: kubeadm init --config /etc/kubernetes/kubeadm/init.yaml
   args:
     creates: /etc/kubernetes/pki/apiserver.key
+
+- name: Setup Kubernetes Components
+  ansible.builtin.command: kubectl apply -f /etc/kubernetes/kubeadm/manifest.yaml
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
 
 - name: Fetch Kubeconfig
   ansible.builtin.fetch:

@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubernetes
+  namespace: kube-system
+data:
+  KUBERNETES_SERVICE_HOST: {{ kubernetes_control_plane_address }}
+  KUBERNETES_SERVICE_PORT: '{{ kubernetes_control_plane_port }}'
