@@ -6,7 +6,6 @@
   - role: system/upgrade
   - role: system/cloudflared
   - role: system/tailscale
-  - role: system/zerotier
   - role: containerd/os
   - role: containerd/containerd
   - role: docker/os
