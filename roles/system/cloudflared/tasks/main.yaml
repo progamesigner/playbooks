@@ -17,6 +17,8 @@
 
 - name: Enable cloudflared
   ansible.builtin.command: cloudflared service install {{ cloudflare_tunnel_token }}
+  args:
+    creates: /etc/systemd/system/cloudflared*
   when:
   - cloudflare_tunnel_token is defined
 
