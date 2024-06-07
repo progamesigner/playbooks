@@ -5,7 +5,7 @@
 
 - name: Add APT repository
   ansible.builtin.apt_repository:
-    filename: cloudflare
+    filename: tailscale
     repo: deb [arch={{ tailscale_architecture }} signed-by=/etc/apt/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/ubuntu {{ tailscale_apt_release }} main
 
 - name: Install packages
