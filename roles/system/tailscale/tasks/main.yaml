@@ -16,7 +16,7 @@
   - tailscale
 
 - name: Join Tailnet
-  ansible.builtin.command: tailscale up --accept-dns=false --advertise-routes={{ tailscale_advertise_routes }} --auth-key={{  tailscale_auth_key }}
+  ansible.builtin.command: tailscale up --accept-dns=false --advertise-routes={{ tailscale_advertise_routes }} --auth-key={{ tailscale_auth_key }} --ssh
   when:
   - tailscale_auth_key is defined
 
