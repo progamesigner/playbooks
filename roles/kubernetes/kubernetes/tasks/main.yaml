@@ -1,12 +1,12 @@
 - name: Add APT key
-  ansible.builtin.apt_key:
-    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-    keyring: /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+  ansible.builtin.get_url:
+    url: https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_release }}/deb/Release.key
+    dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
 
 - name: Add APT repository
   ansible.builtin.apt_repository:
     filename: kubernetes
-    repo: deb [arch={{ kubernetes_architecture }} signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io {{ kubernetes_apt_release }} main
+    repo: deb [arch={{ kubernetes_architecture }} signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_release }}/deb/ /
 
 - name: Ensure directories
   ansible.builtin.file:

@@ -1,12 +1,12 @@
 - name: Add APT key
   ansible.builtin.apt_key:
     url: https://pkg.cloudflare.com/cloudflare-main.gpg
-    keyring: /etc/apt/keyrings/cloudflare-archive-keyring.gpg
+    keyring: /etc/apt/keyrings/cloudflare-apt-keyring.gpg
 
 - name: Add APT repository
   ansible.builtin.apt_repository:
     filename: cloudflare
-    repo: deb [arch={{ cloudflare_architecture }} signed-by=/etc/apt/keyrings/cloudflare-archive-keyring.gpg] https://pkg.cloudflare.com/cloudflared {{ cloudflare_apt_release }} main
+    repo: deb [arch={{ cloudflare_architecture }} signed-by=/etc/apt/keyrings/cloudflare-apt-keyring.gpg] https://pkg.cloudflare.com/cloudflared {{ cloudflare_apt_release }} main
 
 - name: Install packages
   ansible.builtin.package:

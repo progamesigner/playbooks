@@ -1,5 +1,6 @@
 kubernetes_apt_release: kubernetes-xenial
 kubernetes_architecture: amd64
+kubernetes_release: 1.27
 
 kubernetes_cluster_dns: 10.16.0.8
 kubernetes_cluster_domain: cluster.local
