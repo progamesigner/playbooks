@@ -22,16 +22,23 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   loop:
+  - src: service.conf
+    dest: /usr/lib/systemd/system/docker.service.d/override.conf
+  - src: socket.conf
+    dest: /usr/lib/systemd/system/docker.socket.d/override.conf
+
+- name: Copy certificates
+  ansible.builtin.copy:
+    force: false
+    dest: "{{ item.dest }}"
+    src: "{{ item.src }}"
+  loop:
   - src: ca.pem
     dest: /etc/docker/ca.pem
   - src: cert.pem
     dest: /etc/docker/cert.pem
   - src: key.pem
     dest: /etc/docker/key.pem
-  - src: service.conf
-    dest: /usr/lib/systemd/system/docker.service.d/override.conf
-  - src: socket.conf
-    dest: /usr/lib/systemd/system/docker.socket.d/override.conf
 
 - name: Install packages
   ansible.builtin.package:

@@ -26,6 +26,13 @@
   loop:
   - src: crictl.yaml
     dest: /etc/crictl.yaml
+
+- name: Copy certificates
+  ansible.builtin.copy:
+    force: false
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
   - src: ca.crt
     dest: /etc/kubernetes/pki/ca.crt
   - src: ca.key
