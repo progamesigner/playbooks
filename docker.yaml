@@ -1,4 +1,4 @@
-- hosts: kubernetes
+- hosts: workers
   become: yes
   roles:
   - role: system/os
@@ -8,5 +8,5 @@
   - role: system/tailscale
   - role: containerd/os
   - role: containerd/containerd
-  - role: kubernetes/os
-  - role: kubernetes/kubernetes
+  - role: docker/os
+  - role: docker/docker
