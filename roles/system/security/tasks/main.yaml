@@ -1,6 +1,6 @@
 - name: Upload SSH key
   ansible.posix.authorized_key:
-    comment: ''
+    comment: ""
     exclusive: yes
     key: "{{ lookup('file', ssh_public_key_path) }}"
     manage_dir: yes
@@ -21,7 +21,7 @@
 - name: Disable default ubuntu user password
   ansible.builtin.user:
     name: ubuntu
-    password: '!'
+    password: "!"
 
 - name: Disable password login
   ansible.builtin.lineinfile:
