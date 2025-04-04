@@ -1,4 +1,3 @@
-kubernetes_apt_release: kubernetes-xenial
 kubernetes_architecture: amd64
 kubernetes_release: "1.32"
 
