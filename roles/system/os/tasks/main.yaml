@@ -46,8 +46,10 @@
     name: "{{ item.name }}"
     value: "{{ item.value }}"
   loop:
+  - name: fs.inotify.max_user_instances
+    value: 16384
   - name: fs.inotify.max_user_watches
-    value: 524288
+    value: 1048576
   - name: net.core.default_qdisc
     value: fq
   - name: net.core.rmem_max
