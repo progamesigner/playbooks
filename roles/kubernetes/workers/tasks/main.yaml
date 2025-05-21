@@ -1,0 +1,38 @@
+- name: Ensure directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+  - /etc/kubernetes/kubeadm
+
+- name: Generate kubeconfig for worker node {{ inventory_hostname }} from primary
+  ansible.builtin.command: kubeadm kubeconfig user --config /etc/kubernetes/kubeadm/config.yaml --client-name system:node:{{ inventory_hostname }} --org system:nodes
+  delegate_to: "{{ groups['primary'][0] }}"
+  changed_when: false
+  register: kubeconfig
+
+- name: Copy KubeConfig file
+  ansible.builtin.copy:
+    dest: /etc/kubernetes/kubeadm/kubeconfig
+    content: "{{ kubeconfig.stdout }}"
+
+- name: Copy files
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+  - src: kubeadm.yaml
+    dest: /etc/kubernetes/kubeadm/config.yaml
+
+- name: Join Kubernetes cluster
+  ansible.builtin.command: kubeadm join --config /etc/kubernetes/kubeadm/config.yaml
+  args:
+    creates: /etc/kubernetes/pki/ca.crt
+
+- name: Start services
+  ansible.builtin.service:
+    enabled: yes
+    name: "{{ item }}"
+    state: started
+  loop:
+  - kubelet

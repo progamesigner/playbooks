@@ -29,3 +29,25 @@
   - role: kubernetes/primary
   tags:
   - kubernetes-primary
+
+- hosts: masters
+  become: yes
+  roles:
+  - role: containerd/os
+  - role: containerd/containerd
+  - role: kubernetes/os
+  - role: kubernetes/kubernetes
+  - role: kubernetes/masters
+  tags:
+  - kubernetes-master
+
+- hosts: workers
+  become: yes
+  roles:
+  - role: containerd/os
+  - role: containerd/containerd
+  - role: kubernetes/os
+  - role: kubernetes/kubernetes
+  - role: kubernetes/workers
+  tags:
+  - kubernetes-worker

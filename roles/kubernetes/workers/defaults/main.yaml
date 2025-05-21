@@ -1,0 +1,2 @@
+kubernetes_cluster_dns: 10.16.0.8
+kubernetes_cluster_domain: cluster.local
