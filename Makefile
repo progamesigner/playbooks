@@ -1,4 +1,4 @@
-.PHONY: deploy-kubernetes-master
+.PHONY: apply-kubernetes-primary
 
-deploy-kubernetes-master:
-	ansible-playbook kubernetes.yaml
+apply-kubernetes-primary:
+	ansible-playbook site.yaml --tags kubernetes-primary

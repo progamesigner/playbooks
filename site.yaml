@@ -1,0 +1,30 @@
+- hosts: all
+  become: yes
+  roles:
+  - role: system/os
+  - role: system/security
+  - role: system/upgrade
+  - role: system/cloudflared
+  - role: system/tailscale
+  tags:
+  - nodes
+
+- hosts: docker
+  become: yes
+  roles:
+  - role: containerd/os
+  - role: containerd/containerd
+  - role: docker/os
+  - role: docker/docker
+  tags:
+  - docker
+
+- hosts: primary
+  become: yes
+  roles:
+  - role: containerd/os
+  - role: containerd/containerd
+  - role: kubernetes/os
+  - role: kubernetes/primary
+  tags:
+  - kubernetes-primary
