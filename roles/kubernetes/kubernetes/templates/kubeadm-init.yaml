@@ -1,5 +1,20 @@
 ---
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: {{ kubernetes_control_plane_advertise_address }}
+nodeRegistration:
+  name: {{ inventory_hostname }}
+  criSocket: unix:///var/run/containerd.sock
+  kubeletExtraArgs:
+    container-runtime-endpoint: unix:///var/run/containerd.sock
+    container-runtime: remote
+  taints: []
+skipPhases:
+- addon/coredns
+- addon/kube-proxy
+---
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 kubernetesVersion: v{{ kubernetes_version }}
 clusterName: kubernetes
@@ -15,22 +30,6 @@ networking:
 ---
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
-cgroupDriver: systemd
-clusterDomain: {{ kubernetes_cluster_domain }}
 clusterDNS:
 - {{ kubernetes_cluster_dns }}
----
-apiVersion: kubeadm.k8s.io/v1beta3
-kind: InitConfiguration
-localAPIEndpoint:
-  advertiseAddress: {{ kubernetes_control_plane_advertise_address }}
-nodeRegistration:
-  name: {{ inventory_hostname }}
-  criSocket: unix:///var/run/containerd.sock
-  kubeletExtraArgs:
-    container-runtime-endpoint: unix:///var/run/containerd.sock
-    container-runtime: remote
-  taints: []
-skipPhases:
-- addon/coredns
-- addon/kube-proxy
+clusterDomain: {{ kubernetes_cluster_domain }}
