@@ -6,11 +6,6 @@ localAPIEndpoint:
 nodeRegistration:
   name: {{ inventory_hostname }}
   criSocket: unix:///var/run/containerd.sock
-  kubeletExtraArgs:
-  - name: container-runtime
-    value: remote
-  - name: container-runtime-endpoint
-    value: unix:///var/run/containerd.sock
   taints: []
 skipPhases:
 - addon/coredns
@@ -35,3 +30,4 @@ kind: KubeletConfiguration
 clusterDNS:
 - {{ kubernetes_cluster_dns }}
 clusterDomain: {{ kubernetes_cluster_domain }}
+containerRuntimeEndpoint: unix:///var/run/containerd.sock
