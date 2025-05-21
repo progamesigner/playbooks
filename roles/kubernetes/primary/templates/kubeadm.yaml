@@ -7,8 +7,10 @@ nodeRegistration:
   name: {{ inventory_hostname }}
   criSocket: unix:///var/run/containerd.sock
   kubeletExtraArgs:
-    container-runtime-endpoint: unix:///var/run/containerd.sock
-    container-runtime: remote
+  - name: container-runtime
+    value: remote
+  - name: container-runtime-endpoint
+    value: unix:///var/run/containerd.sock
   taints: []
 skipPhases:
 - addon/coredns
