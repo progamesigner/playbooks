@@ -1,0 +1,52 @@
+- name: Add APT key
+  ansible.builtin.get_url:
+    url: https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_release }}/deb/Release.key
+    dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
+
+- name: Add APT repository
+  ansible.builtin.apt_repository:
+    filename: kubernetes
+    repo: deb [arch={{ kubernetes_architecture }} signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_release }}/deb/ /
+
+- name: Ensure directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+  - /etc/kubernetes/manifests
+  - /etc/kubernetes/pki
+  - /usr/lib/systemd/system/kubelet.service.d
+
+- name: Copy files
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+  - src: crictl.yaml
+    dest: /etc/crictl.yaml
+
+- name: Copy files
+  ansible.builtin.copy:
+    force: false
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+  - src: kubelet.conf
+    dest: /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: latest
+  loop:
+  - kubeadm
+  - kubectl
+  - kubelet
+
+- name: Start services
+  ansible.builtin.service:
+    enabled: yes
+    name: "{{ item }}"
+    state: started
+  loop:
+  - cni-dhcp
