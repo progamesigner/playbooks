@@ -6,7 +6,7 @@
   - bridge
   - overlay
 
-- name: Persist mernel modules
+- name: Persist kernel modules
   ansible.builtin.copy:
     dest: /etc/modules-load.d/{{ item }}.conf
     content: "{{ item }}"
