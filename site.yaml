@@ -3,9 +3,9 @@
   roles:
   - role: system/os
   - role: system/security
-  - role: system/upgrade
   - role: system/cloudflared
   - role: system/tailscale
+  - role: system/upgrade
   tags:
   - nodes
 
