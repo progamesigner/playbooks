@@ -1,7 +1,7 @@
 - name: Add APT key
-  ansible.builtin.get_url:
+  ansible.builtin.apt_key:
     url: https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_release }}/deb/Release.key
-    dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
+    keyring: /etc/apt/keyrings/kubernetes-apt-keyring.asc
 
 - name: Add APT repository
   ansible.builtin.apt_repository:
@@ -42,11 +42,3 @@
   - kubeadm
   - kubectl
   - kubelet
-
-- name: Start services
-  ansible.builtin.service:
-    enabled: yes
-    name: "{{ item }}"
-    state: started
-  loop:
-  - cni-dhcp

@@ -1,4 +1,2 @@
 containerd_apt_release: noble
 containerd_architecture: amd64
-kubernetes_architecture: amd64
-kubernetes_release: "1.32"

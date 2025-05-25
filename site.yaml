@@ -13,6 +13,7 @@
   become: yes
   roles:
   - role: containerd/os
+  - role: containerd/cni
   - role: containerd/containerd
   - role: docker/os
   - role: docker/docker
@@ -23,6 +24,7 @@
   become: yes
   roles:
   - role: containerd/os
+  - role: containerd/cni
   - role: containerd/containerd
   - role: kubernetes/os
   - role: kubernetes/kubernetes
@@ -34,6 +36,7 @@
   become: yes
   roles:
   - role: containerd/os
+  - role: containerd/cni
   - role: containerd/containerd
   - role: kubernetes/os
   - role: kubernetes/kubernetes
@@ -45,6 +48,7 @@
   become: yes
   roles:
   - role: containerd/os
+  - role: containerd/cni
   - role: containerd/containerd
   - role: kubernetes/os
   - role: kubernetes/kubernetes
