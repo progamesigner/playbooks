@@ -22,7 +22,7 @@
     dest: "{{ item.dest }}"
   loop:
   - src: kubeadm.yaml
-    dest: /etc/kubernetes/kubeadm/config.yaml
+    dest: /etc/kubernetes/kubeadm/init.yaml
   - src: manifest.yaml
     dest: /etc/kubernetes/kubeadm/manifest.yaml
 
@@ -35,7 +35,7 @@
   - kubelet
 
 - name: Initialize Kubernetes cluster
-  ansible.builtin.command: kubeadm init --config /etc/kubernetes/kubeadm/config.yaml
+  ansible.builtin.command: kubeadm init --config /etc/kubernetes/kubeadm/init.yaml
   args:
     creates: /etc/kubernetes/pki/apiserver.key
 

@@ -28,10 +28,10 @@
     dest: "{{ item.dest }}"
   loop:
   - src: kubeadm.yaml
-    dest: /etc/kubernetes/kubeadm/config.yaml
+    dest: /etc/kubernetes/kubeadm/join.yaml
 
 - name: Join Kubernetes cluster
-  ansible.builtin.command: kubeadm join --config /etc/kubernetes/kubeadm/config.yaml
+  ansible.builtin.command: kubeadm join --config /etc/kubernetes/kubeadm/join.yaml
   args:
     creates: /etc/kubernetes/pki/ca.crt
 
