@@ -63,7 +63,7 @@
         dest: /boot/firmware/cmdline.txt
     - name: Update boot configurations
       ansible.builtin.lineinfile:
-        path: /boot/firmware/usercfg.txt
+        path: /boot/firmware/config.txt
         line: cmdline=cmdline.txt
         state: present
 
