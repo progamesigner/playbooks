@@ -17,3 +17,4 @@ clusterDNS:
 - {{ kubernetes_cluster_dns }}
 clusterDomain: {{ kubernetes_cluster_domain }}
 containerRuntimeEndpoint: unix:///var/run/containerd.sock
+serverTLSBootstrap: true
