@@ -1,5 +1,2 @@
 kubernetes_cluster_dns: 10.16.0.8
 kubernetes_cluster_domain: cluster.local
-
-kubernetes_control_plane_advertise_address: "{{ kubernetes_node_address | default(ansible_facts['default_ipv4']['address']) | default(ansible_facts['all_ipv4_addresses'][0]) }}"
-kubernetes_control_plane_certificate_key: ""
