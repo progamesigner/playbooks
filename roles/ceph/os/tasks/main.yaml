@@ -1,0 +1,19 @@
+- name: Setup kernel modules
+  community.general.modprobe:
+    name: "{{ item }}"
+  loop:
+  - rbd
+
+- name: Persist kernel modules
+  ansible.builtin.copy:
+    dest: /etc/modules-load.d/{{ item }}.conf
+    content: "{{ item }}"
+  loop:
+  - rbd
+
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: latest
+  loop:
+  - lvm2

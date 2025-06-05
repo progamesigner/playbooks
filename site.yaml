@@ -29,6 +29,8 @@
   - role: kubernetes/os
   - role: kubernetes/kubernetes
   - role: kubernetes/primary
+  - role: ceph/os
+  - role: ceph/ceph
   tags:
   - kubernetes-primary
 
@@ -41,6 +43,8 @@
   - role: kubernetes/os
   - role: kubernetes/kubernetes
   - role: kubernetes/masters
+  - role: ceph/os
+  - role: ceph/ceph
   tags:
   - kubernetes-master
 
@@ -53,5 +57,7 @@
   - role: kubernetes/os
   - role: kubernetes/kubernetes
   - role: kubernetes/workers
+  - role: ceph/os
+  - role: ceph/ceph
   tags:
   - kubernetes-worker
