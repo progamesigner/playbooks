@@ -1,12 +1,12 @@
 - name: Add APT key
   ansible.builtin.apt_key:
     url: https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_release }}/deb/Release.key
-    keyring: /etc/apt/keyrings/kubernetes-apt-keyring.asc
+    keyring: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
 - name: Add APT repository
   ansible.builtin.apt_repository:
     filename: kubernetes
-    repo: deb [arch={{ kubernetes_architecture }} signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_release }}/deb/ /
+    repo: deb [arch={{ kubernetes_architecture }} signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v{{ kubernetes_release }}/deb/ /
 
 - name: Ensure directories
   ansible.builtin.file:
