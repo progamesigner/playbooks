@@ -39,6 +39,9 @@
   args:
     creates: /etc/kubernetes/pki/apiserver.key
 
+- name: Upload Kubernetes Configurations
+  ansible.builtin.command: kubeadm init phase upload-config all --config /etc/kubernetes/kubeadm/init.yaml
+
 - name: Setup Kubernetes Components
   ansible.builtin.command: kubectl apply -f /etc/kubernetes/kubeadm/manifest.yaml
   environment:
