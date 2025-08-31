@@ -6,7 +6,7 @@
   - /etc/kubernetes/kubeadm
 
 - name: Generate kubeconfig for worker node {{ inventory_hostname }} from primary
-  ansible.builtin.command: kubeadm kubeconfig user --config /etc/kubernetes/kubeadm/config.yaml --client-name system:node:{{ inventory_hostname }} --org system:nodes
+  ansible.builtin.command: kubeadm kubeconfig user --config /etc/kubernetes/kubeadm/init.yaml --client-name system:node:{{ inventory_hostname }} --org system:nodes
   delegate_to: "{{ groups['primary'][0] }}"
   changed_when: false
   register: kubeconfig
