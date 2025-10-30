@@ -4,6 +4,7 @@
     state: directory
   loop:
   - /etc/ceph
+  - /var/lib/ceph/bootstrap-osd
   - /var/lib/ceph/crash
   - /var/lib/ceph/mds
   - /var/lib/ceph/mgr
@@ -18,3 +19,10 @@
   loop:
   - ceph.client.admin.keyring
   - ceph.mon.keyring
+
+- name: Copy files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /var/lib/ceph/{{ item }}
+  loop:
+  - bootstrap-osd/ceph.keyring
