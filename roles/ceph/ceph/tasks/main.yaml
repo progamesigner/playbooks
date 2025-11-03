@@ -10,7 +10,7 @@
   - /var/lib/ceph/mgr
   - /var/lib/ceph/mon
   - /var/lib/ceph/osd
-  - /var/lib/ceph/radosgw
+  - /var/lib/ceph/rgw
   - /var/log/ceph
 
 - name: Copy files
