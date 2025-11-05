@@ -16,4 +16,5 @@
     name: "{{ item }}"
     state: latest
   loop:
+  - ceph-common
   - lvm2
