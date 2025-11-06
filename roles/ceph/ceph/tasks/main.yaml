@@ -1,34 +1,19 @@
 - name: Ensure directories
   ansible.builtin.file:
+    group: ceph
+    mode: 0755
+    owner: ceph
     path: "{{ item }}"
     state: directory
   loop:
   - /etc/ceph
   - /var/lib/ceph
   - /var/lib/ceph/bootstrap-osd
-  - /var/lib/ceph/crash
   - /var/lib/ceph/mds
   - /var/lib/ceph/mgr
   - /var/lib/ceph/mon
   - /var/lib/ceph/osd
-  - /var/lib/ceph/radosgw
   - /var/log/ceph
-
-- name: Fix permissions
-  ansible.builtin.file:
-    dest: "{{ item }}"
-    owner: ceph
-    group: ceph
-    mode: 0755
-  loop:
-  - /var/lib/ceph
-  - /var/lib/ceph/bootstrap-osd
-  - /var/lib/ceph/crash
-  - /var/lib/ceph/mds
-  - /var/lib/ceph/mgr
-  - /var/lib/ceph/mon
-  - /var/lib/ceph/osd
-  - /var/lib/ceph/radosgw
 
 - name: Copy files
   ansible.builtin.copy:
