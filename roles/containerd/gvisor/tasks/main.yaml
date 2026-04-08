@@ -1,0 +1,16 @@
+- name: Add APT key
+  ansible.builtin.apt_key:
+    url: https://gvisor.dev/archive.key
+    keyring: /etc/apt/keyrings/gvisor-apt-keyring.gpg
+
+- name: Add APT repository
+  ansible.builtin.apt_repository:
+    filename: gvisor
+    repo: deb [arch={{ gvisor_architecture }} signed-by=/etc/apt/keyrings/gvisor-apt-keyring.gpg] https://storage.googleapis.com/gvisor/releases release main
+
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: latest
+  loop:
+  - runsc

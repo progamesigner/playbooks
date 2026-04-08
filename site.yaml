@@ -14,6 +14,7 @@
   roles:
   - role: containerd/os
   - role: containerd/cni
+  - role: containerd/gvisor
   - role: containerd/containerd
   - role: docker/os
   - role: docker/docker
@@ -25,6 +26,7 @@
   roles:
   - role: containerd/os
   - role: containerd/cni
+  - role: containerd/gvisor
   - role: containerd/containerd
   - role: kubernetes/os
   - role: kubernetes/kubernetes
@@ -39,6 +41,7 @@
   roles:
   - role: containerd/os
   - role: containerd/cni
+  - role: containerd/gvisor
   - role: containerd/containerd
   - role: kubernetes/os
   - role: kubernetes/kubernetes
@@ -53,6 +56,7 @@
   roles:
   - role: containerd/os
   - role: containerd/cni
+  - role: containerd/gvisor
   - role: containerd/containerd
   - role: kubernetes/os
   - role: kubernetes/kubernetes
