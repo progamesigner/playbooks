@@ -40,3 +40,16 @@
     path: "{{ sshd_config }}"
     regexp: ^#?PermitRootLogin
     line: PermitRootLogin no
+
+- name: Copy AppArmor profiles
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+  - src: nsjail
+    dest: /etc/apparmor.d/nsjail
+
+- name: Reload the AppArmor profiles
+  ansible.builtin.command: apparmor_parser -r -W /etc/apparmor.d/{{ item }}
+  loop:
+  - nsjail
